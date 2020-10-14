@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.news.mapper.TopicMapper" >
+<insert id="addTopic">
+insert into topic values(default,#{tname})
+</insert>
+<update id="updateTopic">
+update topic
+<set>
+<if test="tname!=null and tname!=''">
+tname=#{tname},
+</if>
+</set>
+where tid=#{tid}
+</update>
+<delete id="deleteTopic">
+delete from topic where tid=#{tid}
+</delete>
+<select id="getTopList" resultType="com.news.pojo.Topic">
+select * from topic
+</select>
+<select id="findTopic" resultType="com.news.pojo.Topic">
+select * from topic where tid=#{tid}
+</select>
+
+</mapper>

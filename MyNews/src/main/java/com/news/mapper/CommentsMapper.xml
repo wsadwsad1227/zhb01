@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.news.mapper.CommentsMapper" >
+	<insert id="addComments" parameterType="com.news.pojo.Comments">
+		insert into comments values(default,#{cnid},#{ccontent},#{cdate},#{cip},#{cauthor})
+	</insert>
+	<update id="updateComments">
+	update comments 
+	<set>
+	<if test="cnid!=null and cnid!=''">
+	cnid=#{cnid},
+	</if>
+	<if test="ccontent!=null and ccontent!=''">
+	ccontent=#{ccontent},
+	</if>
+	<if test="cdate!=null">
+	cdate=#{cdate},
+	</if>
+	<if test="cip!=null and cip!=''">
+	cip=#{cip},
+	</if>
+	<if test="cauthor!=null and cauthor!=''">
+	cauthor=#{cauthor},
+	</if>
+	</set>
+	where cid=#{cid}
+	</update>
+	<delete id="deleteComments">
+	delete from comments where cid=#{cid}
+	</delete>
+	<select id="getCommentsList" resultType="com.news.pojo.Comments">
+	select * from comments
+	</select>
+	<select id="findComments" resultType="com.news.pojo.Comments">
+	select * from comments where cnid=#{cnid} limit #{start},#{end}
+	</select>
+	<select id="commentNumber" resultType="int">
+	select  count(*) number from comments
+	<where>cnid=#{cnid}</where>
+	</select>
+</mapper>
